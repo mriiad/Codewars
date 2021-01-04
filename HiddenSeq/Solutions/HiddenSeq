@@ -1,0 +1,35 @@
+import static org.junit.Assert.assertEquals;
+
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Test;
+
+public class HiddenSeq {
+    
+  public static BigInteger fcn(int n) {
+  BigInteger sum = BigInteger.valueOf(0);
+  List<BigInteger> results = new ArrayList<>();
+  results.add(BigInteger.valueOf(1));
+  results.add(BigInteger.valueOf(2));
+  for(int i = 2; i <= n; i++){
+    results.add((BigInteger.valueOf(6).multiply(results.get(i - 2)).multiply(results.get(i - 1))).divide(BigInteger.valueOf(5).multiply(results.get(i - 2)).subtract(results.get(i - 1))));
+  }
+  return results.get(n);
+  }
+  
+  private static void testing(BigInteger actual, BigInteger expected) {
+    assertEquals(expected, actual);
+  }
+
+  @Test
+  public void test1() {
+    System.out.println("Fixed Tests: fcn");    
+    testing(HiddenSeq.fcn(17), BigInteger.valueOf(131072));
+    testing(HiddenSeq.fcn(21), BigInteger.valueOf(2097152));
+    testing(HiddenSeq.fcn(14), BigInteger.valueOf(16384));
+    testing(HiddenSeq.fcn(43), BigInteger.valueOf(8796093022208L));
+    testing(HiddenSeq.fcn(19), BigInteger.valueOf(524288));
+  }
+}
